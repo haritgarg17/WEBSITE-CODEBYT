@@ -1,0 +1,8 @@
+{
+  "name": "Codebyt - Modern Digital Agency",
+  "description": "A high-converting, professional website for Codebyt, a premium web services and digital marketing agency for startups and SMBs.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
