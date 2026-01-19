@@ -11,11 +11,26 @@ import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import AIChatBot from './components/AIChatBot';
 
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
+const ScrollHandler = () => {
+  const { pathname, hash } = useLocation();
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    // If there's no hash, scroll to the top of the page on route change
+    if (!hash) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // If there's a hash, find the element and scroll to it smoothly
+      // The timeout ensures the DOM is fully rendered before searching
+      const id = hash.replace('#', '');
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [pathname, hash]);
+
   return null;
 };
 
@@ -23,7 +38,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="min-h-screen flex flex-col bg-black text-white antialiased">
-        <ScrollToTop />
+        <ScrollHandler />
         <Navbar />
         <main className="flex-grow">
           <Routes>

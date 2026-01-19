@@ -20,42 +20,48 @@ export const SERVICES: Service[] = [
     title: 'Website Design & Development',
     description: 'High-performance business websites and landing pages optimized for conversions and user experience.',
     icon: <Layout className="w-8 h-8 text-blue-400" />,
-    features: ['E-commerce Solutions', 'Landing Pages', 'Business Sites', 'Portfolios']
+    features: ['E-commerce Solutions', 'Landing Pages', 'Business Sites', 'Portfolios'],
+    themeColor: 'blue'
   },
   {
     id: 'app-dev',
     title: 'Web App Development',
     description: 'Scalable and robust custom web applications built with modern frameworks like React and Node.js.',
     icon: <Code className="w-8 h-8 text-purple-400" />,
-    features: ['SaaS Platforms', 'Admin Panels', 'Internal Tools', 'API Integration']
+    features: ['SaaS Platforms', 'Admin Panels', 'Internal Tools', 'API Integration'],
+    themeColor: 'purple'
   },
   {
     id: 'seo',
     title: 'SEO Optimization',
     description: 'Data-driven SEO strategies to boost your organic visibility and drive high-quality traffic.',
     icon: <Search className="w-8 h-8 text-emerald-400" />,
-    features: ['Keyword Research', 'On-page SEO', 'Backlink Strategy', 'Technical SEO']
+    features: ['Keyword Research', 'On-page SEO', 'Backlink Strategy', 'Technical SEO'],
+    themeColor: 'emerald'
   },
   {
     id: 'performance',
     title: 'Performance Marketing',
     description: 'Results-oriented Google and Meta ads campaigns focused on ROAS and lead generation.',
     icon: <Target className="w-8 h-8 text-pink-400" />,
-    features: ['PPC Management', 'Retargeting', 'A/B Testing', 'Conversion Tracking']
+    features: ['PPC Management', 'Retargeting', 'A/B Testing', 'Conversion Tracking'],
+    themeColor: 'pink'
   },
   {
     id: 'branding',
     title: 'Branding & Graphic Design',
     description: 'Compelling brand identities that resonate with your target audience and stand out in the market.',
     icon: <Palette className="w-8 h-8 text-orange-400" />,
-    features: ['Logo Design', 'Brand Guidelines', 'Social Media Assets', 'UI/UX Design']
+    features: ['Logo Design', 'Brand Guidelines', 'Social Media Assets', 'UI/UX Design'],
+    themeColor: 'orange'
   },
   {
     id: 'maintenance',
     title: 'Maintenance & Optimization',
     description: 'Continuous monitoring and performance tuning to keep your digital assets running at peak efficiency.',
     icon: <Settings className="w-8 h-8 text-indigo-400" />,
-    features: ['Security Updates', 'Speed Optimization', 'Bug Fixes', 'Cloud Hosting']
+    features: ['Security Updates', 'Speed Optimization', 'Bug Fixes', 'Cloud Hosting'],
+    themeColor: 'indigo'
   }
 ];
 

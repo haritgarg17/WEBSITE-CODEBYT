@@ -1,3 +1,4 @@
+
 // Import React to provide access to the React namespace for types like ReactNode
 import React from 'react';
 
@@ -7,6 +8,7 @@ export interface Service {
   description: string;
   icon: React.ReactNode;
   features: string[];
+  themeColor: string; // Dynamic color for glow effects (e.g., 'blue', 'purple', 'emerald')
 }
 
 export interface Project {

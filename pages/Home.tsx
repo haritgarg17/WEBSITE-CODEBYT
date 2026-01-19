@@ -17,9 +17,11 @@ import {
   Lightbulb,
   Cpu,
   BarChart,
-  Layers
+  Layers,
+  Quote,
+  Code2
 } from 'lucide-react';
-import { SERVICES } from '../constants';
+import { SERVICES, TESTIMONIALS } from '../constants';
 import ROISimulator from '../components/ROISimulator';
 
 const Home: React.FC = () => {
@@ -30,6 +32,14 @@ const Home: React.FC = () => {
   const y2 = useTransform(scrollY, [0, 1000], [0, -200]);
   const y3 = useTransform(scrollY, [0, 1200], [0, 450]);
   const y4 = useTransform(scrollY, [0, 800], [0, -350]);
+  
+  // New: Deeper layer parallax
+  const gridY = useTransform(scrollY, [0, 2000], [0, 200]);
+  const digitalBitsY = useTransform(scrollY, [0, 1000], [0, -600]); // Fast moving "bits" for depth
+  
+  // Specific parallax for the Hero Image
+  const heroImageY = useTransform(scrollY, [0, 500], [0, 60]);
+  
   const rotateParallax = useTransform(scrollY, [0, 1000], [0, 45]);
   const opacityParallax = useTransform(scrollY, [0, 500], [1, 0.3]);
 
@@ -50,10 +60,18 @@ const Home: React.FC = () => {
     }
   };
 
+  const brands = ['MICROSOFT', 'ADOBE', 'SHOPIFY', 'STRIPE', 'AIRBNB', 'GOOGLE', 'META', 'AMAZON'];
+
   return (
     <div className="overflow-hidden bg-black">
       {/* Enhanced Multi-Layer Parallax Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
+        {/* Layer 0: Subtle Moving Grid */}
+        <motion.div 
+          style={{ y: gridY }}
+          className="absolute inset-0 opacity-[0.05] hero-pattern"
+        />
+
         {/* Layer 1: Massive Deep Blue Pulse */}
         <motion.div 
           style={{ y: y1, opacity: opacityParallax }}
@@ -76,7 +94,32 @@ const Home: React.FC = () => {
           className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] bg-purple-600/10 blur-[130px] rounded-full"
         ></motion.div>
 
-        {/* Layer 3: Floating Cyan Accent (Faster Scroll) */}
+        {/* Layer 3: Digital "Bits" (Fast Parallax for depth) */}
+        <motion.div style={{ y: digitalBitsY }} className="absolute inset-0 z-5">
+          {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute text-blue-500/10 font-mono text-xl select-none"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                opacity: [0.1, 0.3, 0.1],
+                y: [0, -20, 0],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 5,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+              }}
+            >
+              {Math.random() > 0.5 ? '{' : '/>'}
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Layer 4: Floating Cyan Accent */}
         <motion.div 
           style={{ y: y3, rotate: rotateParallax }}
           animate={{ 
@@ -86,7 +129,7 @@ const Home: React.FC = () => {
           className="absolute top-[20%] right-[10%] w-[300px] h-[300px] bg-cyan-400/10 blur-[90px] rounded-full"
         ></motion.div>
 
-        {/* Layer 4: Floating Pink Accent (Upward Movement) */}
+        {/* Layer 5: Floating Pink Accent */}
         <motion.div 
           style={{ y: y4 }}
           animate={{ 
@@ -96,9 +139,6 @@ const Home: React.FC = () => {
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
           className="absolute bottom-[20%] left-[5%] w-[400px] h-[400px] bg-pink-500/10 blur-[110px] rounded-full"
         ></motion.div>
-
-        {/* Layer 5: Static Grain/Noise Overlay */}
-        <div className="absolute inset-0 opacity-[0.03] hero-pattern"></div>
       </div>
 
       {/* Hero Section */}
@@ -131,15 +171,16 @@ const Home: React.FC = () => {
                 <ArrowRight className="relative z-10 group-hover:translate-x-1 transition-transform" />
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-transparent opacity-0 group-hover:opacity-20 transition-opacity"></div>
               </Link>
-              <Link to="/portfolio" className="px-8 py-4 glass hover:bg-white/10 text-white rounded-full font-bold transition-all flex items-center gap-2">
-                Our Work <PlayCircle className="w-5 h-5" />
-              </Link>
+              <a href="#services-section" className="px-8 py-4 glass hover:bg-white/10 text-white rounded-full font-bold transition-all flex items-center gap-2">
+                Explore Services <PlayCircle className="w-5 h-5" />
+              </a>
             </motion.div>
           </motion.div>
           
           <motion.div 
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
+            style={{ y: heroImageY }}
             transition={{ duration: 1, delay: 0.5 }}
             className="relative hidden lg:block"
           >
@@ -162,20 +203,36 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Trust Banner */}
-      <section className="py-12 border-y border-white/5 bg-white/[0.02] relative z-10">
+      {/* Infinite Moving Trust Banner */}
+      <section className="py-12 border-y border-white/5 bg-white/[0.02] relative z-10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
-          <p className="text-center text-gray-500 text-sm font-medium uppercase tracking-[0.2em] mb-8">Trusted by industry leaders</p>
-          <div className="flex flex-wrap justify-center gap-12 opacity-40 grayscale hover:grayscale-0 transition-all">
-            {['MICROSOFT', 'ADOBE', 'SHOPIFY', 'STRIPE', 'AIRBNB'].map(brand => (
-              <span key={brand} className="text-2xl font-black">{brand}</span>
+          <p className="text-center text-gray-500 text-sm font-medium uppercase tracking-[0.2em] mb-10">Trusted by industry leaders</p>
+        </div>
+        
+        <div className="flex relative">
+          <motion.div 
+            className="flex gap-20 whitespace-nowrap"
+            animate={{ x: [0, -1920] }}
+            transition={{ 
+              duration: 30, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+          >
+            {[...brands, ...brands, ...brands].map((brand, idx) => (
+              <span 
+                key={`${brand}-${idx}`} 
+                className="text-2xl md:text-3xl font-black text-white/40 grayscale hover:grayscale-0 hover:text-white transition-all cursor-default select-none tracking-tighter"
+              >
+                {brand}
+              </span>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Services Overview */}
-      <section className="py-24 relative z-10 bg-black">
+      <section id="services-section" className="py-24 relative z-10 bg-black scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-20">
             <h3 className="text-4xl md:text-6xl font-black mb-6 italic">Engineering <span className="text-blue-500">Growth.</span></h3>
@@ -208,8 +265,8 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* NEW USP SECTION: THE CODEBYT ADVANTAGE */}
-      <section className="py-32 relative z-10 bg-black/50">
+      {/* THE CODEBYT ADVANTAGE */}
+      <section id="advantage-section" className="py-32 relative z-10 bg-black/50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-20">
             <motion.div 
@@ -302,8 +359,8 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Unique Tool Section: ROI Simulator */}
-      <section className="py-24 relative z-10">
+      {/* ROI Simulator Section */}
+      <section id="roi-section" className="py-24 relative z-10 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-blue-500 font-bold tracking-widest uppercase text-sm">Interactive Planning</h2>
@@ -313,8 +370,8 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Why Choose Us (Stats section) */}
-      <section className="py-24 relative z-10 overflow-hidden">
+      {/* Stats section */}
+      <section id="stats-section" className="py-24 relative z-10 overflow-hidden scroll-mt-24">
         <div className="absolute right-0 top-0 w-1/3 h-full bg-blue-600/5 blur-[120px] rounded-full"></div>
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div className="relative">
@@ -365,11 +422,45 @@ const Home: React.FC = () => {
                 </div>
               ))}
             </div>
-            <div className="pt-4">
+            <div className="pt-4 flex items-center gap-6">
               <Link to="/about" className="text-blue-500 font-bold flex items-center gap-2 hover:gap-4 transition-all underline decoration-blue-500/30 underline-offset-8">
-                Discover our methodology <ArrowRight size={18} />
+                Discover methodology <ArrowRight size={18} />
               </Link>
+              <a href="#testimonials-section" className="text-purple-400 font-bold flex items-center gap-2 hover:gap-4 transition-all">
+                What clients say <Users size={18} />
+              </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials-section" className="py-24 relative z-10 scroll-mt-24">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-20">
+             <h3 className="text-4xl md:text-6xl font-black italic">Client <span className="text-purple-500">Voices.</span></h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {TESTIMONIALS.map((testimonial, idx) => (
+              <motion.div 
+                key={testimonial.id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="glass p-10 rounded-[40px] border border-white/5 relative group"
+              >
+                <Quote className="absolute top-10 right-10 w-20 h-20 text-white/[0.03] group-hover:text-purple-500/10 transition-colors" />
+                <p className="text-xl text-gray-300 leading-relaxed italic mb-10 relative z-10">"{testimonial.content}"</p>
+                <div className="flex items-center gap-4 relative z-10">
+                  <img src={testimonial.avatar} alt={testimonial.name} className="w-14 h-14 rounded-2xl object-cover border-2 border-purple-500/20" />
+                  <div>
+                    <h4 className="font-bold text-lg">{testimonial.name}</h4>
+                    <p className="text-sm text-gray-500">{testimonial.role} @ <span className="text-purple-400">{testimonial.company}</span></p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

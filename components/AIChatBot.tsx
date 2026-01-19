@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Bot, Loader2, Sparkles } from 'lucide-react';
+import { MessageSquare, X, Send, Bot, Loader2 } from 'lucide-react';
 import { getCodebytAssistantResponse } from '../services/geminiService';
 
 const AIChatBot: React.FC = () => {
@@ -108,7 +108,7 @@ const AIChatBot: React.FC = () => {
                   <Send size={18} />
                 </button>
               </div>
-              <p className="text-[10px] text-gray-500 text-center mt-3 uppercase tracking-widest font-bold">Powered by Gemini Pro Vision</p>
+              <p className="text-[10px] text-gray-500 text-center mt-3 uppercase tracking-widest font-bold">Powered by Gemini 3 Pro</p>
             </div>
           </motion.div>
         )}

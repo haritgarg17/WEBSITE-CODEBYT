@@ -1,3 +1,4 @@
+
 // Adhering to @google/genai guidelines for client initialization and response property access
 import { GoogleGenAI } from "@google/genai";
 
@@ -8,8 +9,9 @@ export const getCodebytAssistantResponse = async (userMessage: string) => {
   try {
     // Guidelines require using process.env.API_KEY directly in the GoogleGenAI constructor
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    // Using gemini-3-pro-preview for complex reasoning tasks as per guidelines
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
+      model: 'gemini-3-pro-preview',
       contents: userMessage,
       config: {
         systemInstruction: `You are the Codebyt AI Consultant. Codebyt is a premium digital agency. 
@@ -21,7 +23,7 @@ export const getCodebytAssistantResponse = async (userMessage: string) => {
     });
 
     // Use .text property to retrieve the generated content as a string, avoiding text() method call
-    return response.text;
+    return response.text || "I'm here to help you scale your business. What would you like to know about our services?";
   } catch (error) {
     console.error("Gemini Error:", error);
     return "Something went wrong while thinking. How about we discuss your project directly? Click 'Get a Free Consultation'!";

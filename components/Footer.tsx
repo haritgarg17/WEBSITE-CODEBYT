@@ -51,22 +51,22 @@ const Footer: React.FC = () => {
             <ul className="space-y-4 text-gray-400">
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-blue-500" />
-                <span>hello@codebyt.com</span>
+                <span>codebyt123@gmail.com</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-blue-500" />
-                <span>+1 (555) 000-0000</span>
+                <span>+91 97184 17771</span>
               </li>
               <li className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-blue-500" />
-                <span>123 Tech Square, Silicon Valley, CA</span>
+                <span>India / Remote Operations</span>
               </li>
             </ul>
           </div>
         </div>
         
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-          <p>© 2024 Codebyt Agency. All rights reserved.</p>
+          <p>© 2026 Codebyt Agency. All rights reserved.</p>
           <div className="flex gap-8">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>

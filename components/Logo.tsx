@@ -11,27 +11,29 @@ interface LogoProps {
 const Logo: React.FC<LogoProps> = ({ className = "", showText = true, size = 40 }) => {
   return (
     <motion.div 
-      className={`flex items-center gap-3 ${className}`}
+      className={`flex items-center gap-3 cursor-pointer ${className}`}
       initial={false}
       animate={{
         filter: [
-          'drop-shadow(0 0 0px rgba(37, 99, 235, 0))',
-          'drop-shadow(0 0 15px rgba(37, 99, 235, 0.4))',
-          'drop-shadow(0 0 0px rgba(37, 99, 235, 0))'
-        ]
+          'drop-shadow(0 0 2px rgba(37, 99, 235, 0.1))',
+          'drop-shadow(0 0 12px rgba(37, 99, 235, 0.6))',
+          'drop-shadow(0 0 2px rgba(37, 99, 235, 0.1))'
+        ],
+        scale: [1, 1.02, 1]
       }}
       transition={{
-        duration: 4,
+        duration: 3,
         repeat: Infinity,
         ease: "easeInOut"
       }}
     >
-      <svg 
+      <motion.svg 
         width={size} 
         height={size} 
         viewBox="0 0 100 100" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
+        whileHover={{ rotate: [0, -5, 5, 0], transition: { duration: 0.5 } }}
       >
         <defs>
           <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -42,6 +44,13 @@ const Logo: React.FC<LogoProps> = ({ className = "", showText = true, size = 40 
             <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.8" />
             <stop offset="100%" stopColor="#2563eb" stopOpacity="0.4" />
           </linearGradient>
+          <filter id="softGlow">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
         </defs>
         
         {/* Main Shield / Bracket Container */}
@@ -77,7 +86,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", showText = true, size = 40 
         
         {/* Connecting Lines */}
         <path d="M48 30H65M48 70H65" stroke="url(#logoGradient)" strokeWidth="4" strokeLinecap="round" />
-      </svg>
+      </motion.svg>
       
       {showText && (
         <div className="relative">
@@ -89,7 +98,8 @@ const Logo: React.FC<LogoProps> = ({ className = "", showText = true, size = 40 
             className="absolute left-[18px] top-[14px] pointer-events-none"
             animate={{ 
               opacity: [0.7, 1, 0.7],
-              scale: [1, 1.1, 1]
+              scale: [1, 1.1, 1],
+              y: [0, -1, 0]
             }}
             transition={{
               duration: 2,

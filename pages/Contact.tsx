@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, MessageSquare, Briefcase, Globe } from 'lucide-react';
 
 const Contact: React.FC = () => {
@@ -32,7 +33,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-lg mb-1">Email Us</h4>
-                  <p className="text-gray-400">hello@codebyt.com</p>
+                  <p className="text-gray-400">codebyt123@gmail.com</p>
                 </div>
               </div>
               <div className="flex gap-6 items-start">
@@ -41,7 +42,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-lg mb-1">Call Us</h4>
-                  <p className="text-gray-400">+1 (555) 000-0000</p>
+                  <p className="text-gray-400">+91 97184 17771</p>
                 </div>
               </div>
               <div className="flex gap-6 items-start">
@@ -49,8 +50,8 @@ const Contact: React.FC = () => {
                   <MapPin className="text-purple-500" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg mb-1">Visit Us</h4>
-                  <p className="text-gray-400">123 Tech Square, Suite 400<br/>San Francisco, CA 94105</p>
+                  <h4 className="font-bold text-lg mb-1">Location</h4>
+                  <p className="text-gray-400">Global Operations<br/>New Delhi, India</p>
                 </div>
               </div>
             </div>
@@ -90,15 +91,15 @@ const Contact: React.FC = () => {
               <div className="space-y-2">
                 <label className="text-sm font-bold text-gray-400 uppercase tracking-widest">Service Interested In</label>
                 <select 
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-blue-500 transition-colors appearance-none"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-blue-500 transition-colors appearance-none text-white"
                   value={formData.service}
                   onChange={e => setFormData({...formData, service: e.target.value})}
                 >
-                  <option>Web Development</option>
-                  <option>App Development</option>
-                  <option>SEO Strategy</option>
-                  <option>Performance Marketing</option>
-                  <option>Branding</option>
+                  <option className="bg-black text-white">Web Development</option>
+                  <option className="bg-black text-white">App Development</option>
+                  <option className="bg-black text-white">SEO Strategy</option>
+                  <option className="bg-black text-white">Performance Marketing</option>
+                  <option className="bg-black text-white">Branding</option>
                 </select>
               </div>
               <div className="space-y-2">
@@ -111,13 +112,18 @@ const Contact: React.FC = () => {
                   onChange={e => setFormData({...formData, message: e.target.value})}
                 ></textarea>
               </div>
-              <button 
+              <motion.button 
                 type="submit" 
-                className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 group"
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-3 group relative overflow-hidden shadow-lg shadow-blue-600/20"
               >
-                Send Message <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </button>
-              <p className="text-center text-xs text-gray-500">By clicking send, you agree to our privacy policy.</p>
+                <span className="relative z-10 flex items-center gap-3">
+                  Send Message <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              </motion.button>
+              <p className="text-center text-xs text-gray-500 font-medium">By clicking send, you agree to our privacy policy.</p>
             </form>
           </div>
         </div>
